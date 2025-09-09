@@ -1,0 +1,212 @@
+import React, { useState } from "react";
+
+// Single-file React + Tailwind landing page for "MK Perfumes"
+// Usage: Drop into a CRA/Vite React project, Tailwind configured.
+// Features: header with logo, hero, product grid, product modal, about, contact, footer.
+
+export default function App() {
+  const [selected, setSelected] = useState(null);
+  const products = [
+    {
+      id: 1,
+      name: "Noir Oud",
+      tagline: "Warm • Spicy • Luxurious",
+      price: "35 JD",
+      image: "/images/noir-oud.jpg",
+      desc: "A deep oud-forward composition with amber and tobacco highlights."
+    },
+    {
+      id: 2,
+      name: "Blossom Veil",
+      tagline: "Fresh • Floral • Feminine",
+      price: "28 JD",
+      image: "/images/blossom-veil.jpg",
+      desc: "A bright bouquet of jasmine and magnolia with musky base notes."
+    },
+    {
+      id: 3,
+      name: "Citrus Saffron",
+      tagline: "Zesty • Clean • Elegant",
+      price: "30 JD",
+      image: "/images/citrus-saffron.jpg",
+      desc: "Sparkling citrus top notes balanced by saffron and smooth woods."
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-50 text-gray-800 antialiased">
+      <header className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          {/* Inline SVG logo to avoid external assets */}
+          <div className="w-12 h-12 bg-white rounded-xl shadow flex items-center justify-center">
+            <svg viewBox="0 0 64 64" className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+              <rect x="14" y="18" width="36" height="30" rx="4" fill="none" stroke="black" strokeWidth="3" />
+              <rect x="26" y="8" width="12" height="8" rx="1.5" fill="black" />
+              <ellipse cx="50" cy="16" rx="5" ry="3.5" fill="black" />
+            </svg>
+          </div>
+          <div>
+            <h1 className="font-serif text-xl md:text-2xl">MK <span className="font-semibold">Perfumes</span></h1>
+            <p className="text-xs text-gray-500 -mt-1">Luxury fragrances • Curated in Jordan</p>
+          </div>
+        </div>
+        <nav className="hidden md:flex gap-6 text-sm">
+          <a href="#products" className="hover:underline">Products</a>
+          <a href="#about" className="hover:underline">About</a>
+          <a href="#contact" className="hover:underline">Contact</a>
+        </nav>
+      </header>
+
+      {/* HERO */}
+      <section className="relative bg-gradient-to-b from-white via-yellow-50 to-white">
+        <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h2 className="text-3xl md:text-5xl font-serif leading-tight">Scent that tells your story</h2>
+            <p className="mt-4 text-gray-600 max-w-xl">MK Perfumes crafts refined, long-lasting fragrances inspired by tradition and modern elegance. Explore our signature scents or request a bespoke blend.</p>
+            <div className="mt-6 flex gap-3">
+              <a href="#products" className="inline-block px-6 py-3 bg-black text-white rounded-lg shadow">Shop Bestsellers</a>
+              <a href="#contact" className="inline-block px-6 py-3 border rounded-lg">Get a Consultation</a>
+            </div>
+            <div className="mt-6 text-xs text-gray-500">Free local shipping inside Jordan on orders over 40 JD.</div>
+          </div>
+          <div className="hidden md:flex items-center justify-center">
+            {/* Placeholder bottle illustration */}
+            <div className="w-72 h-72 rounded-3xl bg-white shadow-2xl flex items-center justify-center">
+              <svg viewBox="0 0 200 200" className="w-40 h-40" xmlns="http://www.w3.org/2000/svg">
+                <rect x="40" y="50" width="120" height="100" rx="12" fill="none" stroke="#111827" strokeWidth="6" />
+                <rect x="85" y="24" width="30" height="18" rx="3" fill="#111827" />
+                <ellipse cx="160" cy="46" rx="12" ry="8" fill="#111827" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PRODUCTS */}
+      <section id="products" className="max-w-6xl mx-auto px-6 py-16">
+        <h3 className="text-2xl font-semibold">Our Collection</h3>
+        <p className="text-gray-600 mt-2">Hand-selected blends for every mood.</p>
+
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {products.map((p) => (
+            <article key={p.id} className="bg-white rounded-2xl shadow p-5 flex flex-col">
+              <div className="h-44 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
+                {/* Replace src with real product images */}
+                <img src={p.image} alt={p.name} className="object-cover w-full h-full" />
+              </div>
+              <div className="mt-4 flex-1">
+                <h4 className="font-serif text-lg">{p.name}</h4>
+                <p className="text-sm text-gray-500 mt-1">{p.tagline}</p>
+              </div>
+              <div className="mt-4 flex items-center justify-between">
+                <div className="text-lg font-medium">{p.price}</div>
+                <div className="flex gap-2">
+                  <button onClick={() => setSelected(p)} className="px-4 py-2 border rounded-lg text-sm">Quick view</button>
+                  <button className="px-4 py-2 bg-black text-white rounded-lg text-sm">Add</button>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* ABOUT */}
+      <section id="about" className="bg-white border-t">
+        <div className="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h3 className="text-2xl font-semibold">About MK Perfumes</h3>
+            <p className="text-gray-600 mt-3">Founded with a love for classical perfumery, MK Perfumes blends regional ingredients with modern techniques. Every fragrance is crafted in small batches and tested for longevity and sillage.</p>
+            <ul className="mt-4 text-sm text-gray-600 space-y-2">
+              <li>• Small-batch artisan blends</li>
+              <li>• Natural and sustainable sourcing where possible</li>
+              <li>• Bespoke fragrance consultations available</li>
+            </ul>
+          </div>
+          <div className="rounded-xl overflow-hidden bg-gray-50 h-64 flex items-center justify-center">
+            <div className="text-center px-6">
+              <h4 className="font-serif text-lg">Bespoke Service</h4>
+              <p className="text-gray-600 mt-2">Book a scent consultation and we'll help design a signature fragrance for you or your brand.</p>
+              <a href="#contact" className="inline-block mt-4 px-4 py-2 border rounded-lg">Request Consultation</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACT */}
+      <section id="contact" className="max-w-6xl mx-auto px-6 py-12">
+        <div className="grid md:grid-cols-2 gap-8">
+          <div>
+            <h3 className="text-2xl font-semibold">Contact</h3>
+            <p className="text-gray-600 mt-2">Questions about our collection, wholesale, or bespoke services? Send us a message.</p>
+
+            <form className="mt-6 space-y-4 max-w-md">
+              <div>
+                <label className="block text-sm text-gray-600">Name</label>
+                <input className="mt-1 w-full border rounded-md px-3 py-2" placeholder="Your name" />
+              </div>
+              <div>
+                <label className="block text-sm text-gray-600">Email</label>
+                <input className="mt-1 w-full border rounded-md px-3 py-2" placeholder="you@example.com" />
+              </div>
+              <div>
+                <label className="block text-sm text-gray-600">Message</label>
+                <textarea className="mt-1 w-full border rounded-md px-3 py-2" rows={4} placeholder="How can we help?" />
+              </div>
+              <div>
+                <button type="button" className="px-5 py-3 bg-black text-white rounded-lg">Send Message</button>
+              </div>
+            </form>
+          </div>
+
+          <div className="rounded-xl bg-gradient-to-br from-yellow-50 to-white p-8">
+            <h4 className="font-semibold">Visit Us</h4>
+            <p className="text-sm text-gray-600 mt-2">Showroom & pickup: Amman, Jordan — exact address available after booking.</p>
+            <div className="mt-4">
+              <strong className="block">Business Hours</strong>
+              <span className="block text-sm text-gray-600">Mon–Fri 10:00–18:00</span>
+              <span className="block text-sm text-gray-600">Sat 11:00–16:00</span>
+            </div>
+            <div className="mt-6">
+              <strong className="block">Phone</strong>
+              <a href="tel:+96260000000" className="block text-sm text-gray-600">+962 6 0000 000</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="border-t mt-12">
+        <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="text-sm text-gray-600">© {new Date().getFullYear()} MK Perfumes — All rights reserved.</div>
+          <div className="flex gap-4 text-sm text-gray-600">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+          </div>
+        </div>
+      </footer>
+
+      {/* PRODUCT QUICK VIEW MODAL */}
+      {selected && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-6 z-50">
+          <div className="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-lg">
+            <div className="flex gap-6">
+              <div className="w-40 h-40 bg-gray-100 rounded-lg overflow-hidden">
+                <img src={selected.image} alt={selected.name} className="w-full h-full object-cover" />
+              </div>
+              <div>
+                <h4 className="text-2xl font-serif">{selected.name}</h4>
+                <p className="text-gray-600 mt-2">{selected.desc}</p>
+                <div className="mt-4 font-medium text-lg">{selected.price}</div>
+
+                <div className="mt-6 flex gap-3">
+                  <button className="px-4 py-2 bg-black text-white rounded-lg">Add to cart</button>
+                  <button onClick={() => setSelected(null)} className="px-4 py-2 border rounded-lg">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
